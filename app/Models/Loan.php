@@ -31,4 +31,9 @@ class Loan extends Model
             default => ucfirst($this->status),
         };
     }    
+
+    protected function casts(): array
+    {
+        return ['due_date' => 'datetime'];
+    }
 }

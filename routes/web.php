@@ -39,4 +39,5 @@ Route::prefix('emprestimos')->group(function () {
     Route::put('/{id}', [LoansController::class, 'update'])->name('emprestimos.update');
     Route::patch('/{id}/devolver', [LoansController::class, 'markAsReturned'])->name('emprestimos.markAsReturned');
     Route::patch('/{id}/atrasado', [LoansController::class, 'markAsLate'])->name('emprestimos.markAsLate');
+    Route::patch('/emprestimos/{id}/renovar', [LoansController::class, 'renew'])->name('emprestimos.renew');
 });

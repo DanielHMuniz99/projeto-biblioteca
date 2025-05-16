@@ -31,6 +31,10 @@
                         @csrf @method('PATCH')
                         <button class="btn btn-sm btn-warning">Atrasado</button>
                     </form>
+                    <form action="{{ route('emprestimos.renew', $loan->id) }}" method="POST" style="display:inline;">
+                        @csrf @method('PATCH')
+                        <button class="btn btn-sm btn-info">Renovar</button>
+                    </form>
                 </td>
             </tr>
             @endforeach

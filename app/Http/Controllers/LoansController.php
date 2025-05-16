@@ -6,6 +6,7 @@ use App\Models\Loan;
 use App\Models\User;
 use App\Models\Book;
 use Illuminate\Http\Request;
+use App\Services\LoanService;
 
 class LoansController extends Controller
 {
@@ -66,4 +67,18 @@ class LoansController extends Controller
             ->route('emprestimos.index')
             ->with('success', 'Empréstimo marcado como atrasado.');
     }    
+
+    public function renew($id, LoanService $loanService)
+    {
+        $loan = Loan::with('user')->findOrFail($id);
+
+        try {
+            $loanService->renewLoan($loan);
+            return redirect()->route('emprestimos.index')
+                ->with('success', 'Empréstimo renovado com sucesso por mais 7 dias.');
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return redirect()->route('emprestimos.index')
+                ->with('error', $e->getMessage());
+        }
+    }
 }
