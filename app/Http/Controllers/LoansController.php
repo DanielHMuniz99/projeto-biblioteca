@@ -52,9 +52,18 @@ class LoansController extends Controller
 
     public function markAsLate($id)
     {
-        $loan = Loan::findOrFail($id);
+        $loan = Loan::with('book')->findOrFail($id);
+    
+        if (now()->lt($loan->due_date)) {
+            return redirect()
+                ->route('emprestimos.index')
+                ->with('error', 'Este empréstimo ainda não está atrasado.');
+        }
+    
         $loan->update(['status' => 'late']);
-
-        return redirect()->route('emprestimos.index')->with('success', 'Empréstimo marcado como atrasado.');
-    }
+    
+        return redirect()
+            ->route('emprestimos.index')
+            ->with('success', 'Empréstimo marcado como atrasado.');
+    }    
 }
