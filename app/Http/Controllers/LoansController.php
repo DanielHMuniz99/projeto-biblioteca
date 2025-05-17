@@ -28,14 +28,16 @@ class LoansController extends Controller
         $request->validate([
             'user_id' => 'required|exists:users,id',
             'book_id' => 'required|exists:books,id',
-            'due_date' => 'required|date|after:today'
+            'start_date' => 'required|date',
+            'due_date' => 'required|date|after_or_equal:start_date',
         ]);
-
+        
         Loan::create([
             'user_id' => $request->user_id,
             'book_id' => $request->book_id,
+            'start_date' => $request->start_date,
             'due_date' => $request->due_date,
-            'status' => 'pending'
+            'status' => 'pending',
         ]);
 
         Book::findOrFail($request->book_id)->update(['status' => 'loaned']);

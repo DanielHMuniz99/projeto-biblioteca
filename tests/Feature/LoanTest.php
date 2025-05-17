@@ -34,6 +34,7 @@ class LoanTest extends TestCase
         $response = $this->post('/emprestimos', [
             'user_id' => $user->id,
             'book_id' => $book->id,
+            'start_date' => now()->toDateString(),
             'due_date' => now()->addDays(7)->toDateString(),
         ]);
 

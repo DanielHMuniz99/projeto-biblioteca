@@ -9,8 +9,10 @@ class Loan extends Model
     protected $fillable = [
         'user_id',
         'book_id',
-        'due_date'
-    ];
+        'start_date',
+        'due_date',
+        'status',
+    ];   
 
     public function user()
     {
@@ -34,6 +36,9 @@ class Loan extends Model
 
     protected function casts(): array
     {
-        return ['due_date' => 'datetime'];
-    }
+        return [
+            'start_date' => 'date',
+            'due_date' => 'date',
+        ];
+    }    
 }
