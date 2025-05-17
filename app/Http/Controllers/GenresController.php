@@ -48,7 +48,15 @@ class GenresController extends Controller
 
     public function destroy($id)
     {
-        Genre::destroy($id);
+        $genre = Genre::withCount('books')->findOrFail($id);
+    
+        if ($genre->books_count > 0) {
+            return redirect()->route('generos.index')
+                ->with('error', 'Este gênero não pode ser excluído pois ainda possui livros associados.');
+        }
+    
+        $genre->delete();
+    
         return redirect()->route('generos.index')->with('success', 'Gênero excluído com sucesso.');
-    }
+    }    
 }
