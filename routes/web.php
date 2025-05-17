@@ -27,8 +27,8 @@ Route::prefix('livros')->group(function () {
 Route::prefix('generos')->group(function () {
     Route::get('/', [GenresController::class, 'index'])->name('generos.index');
     Route::get('/create', [GenresController::class, 'create'])->name('generos.create');
-    Route::get('/{id}/edit', [GenresController::class, 'edit'])->name('generos.edit');
     Route::post('/', [GenresController::class, 'store'])->name('generos.store');
+    Route::get('/{id}/edit', [GenresController::class, 'edit'])->name('generos.edit');
     Route::put('/{id}', [GenresController::class, 'update'])->name('generos.update');
     Route::delete('/{id}', [GenresController::class, 'destroy'])->name('generos.destroy');
 });
