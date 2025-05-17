@@ -17,11 +17,6 @@ Foi desenvolvido utilizando Laravel seguindo boas práticas de arquitetura e org
 
 1. Clone o repositório:
 
-   ```bash
-   git clone https://github.com/seu-usuario/seu-projeto.git
-   cd seu-projeto
-   ```
-
 2. Instale as dependências:
 
    ```bash
@@ -36,11 +31,18 @@ Foi desenvolvido utilizando Laravel seguindo boas práticas de arquitetura e org
 
 4. Configure o banco de dados no `.env`
 
-5. Rode as migrations:
+5. Rode as migrations **com seeders** (dados fictícios incluídos):
 
    ```bash
-   php artisan migrate
+   php artisan migrate:fresh --seed
    ```
+
+   Isso criará:
+
+   * 5 gêneros
+   * 3 usuários
+   * 3 livros (alguns emprestados)
+   * 2 empréstimos (sendo 1 pendente e 1 atrasado)
 
 6. Inicie o servidor:
 
@@ -61,8 +63,6 @@ Foi desenvolvido utilizando Laravel seguindo boas práticas de arquitetura e org
 * `PUT /usuarios/{id}` — Atualizar usuário
 * `DELETE /usuarios/{id}` — Excluir usuário
 
----
-
 ### 📚 Livros (`/livros`)
 
 * `GET /livros` — Listar livros
@@ -72,8 +72,6 @@ Foi desenvolvido utilizando Laravel seguindo boas práticas de arquitetura e org
 * `PUT /livros/{id}` — Atualizar livro
 * `DELETE /livros/{id}` — Excluir livro
 
----
-
 ### 🏷️ Gêneros (`/generos`)
 
 * `GET /generos` — Listar gêneros
@@ -82,8 +80,6 @@ Foi desenvolvido utilizando Laravel seguindo boas práticas de arquitetura e org
 * `POST /generos` — Cadastrar novo gênero
 * `DELETE /generos/{id}` — Excluir gênero
   ⚠️ *Gêneros com livros associados não podem ser excluídos.*
-
----
 
 ### 🔄 Empréstimos (`/emprestimos`)
 
@@ -107,6 +103,7 @@ Foi desenvolvido utilizando Laravel seguindo boas práticas de arquitetura e org
 * Um gênero com livros associados **não pode ser excluído**
 * Livros são marcados como "Emprestado" ou "Disponível" automaticamente
 * Empréstimos vencidos **não podem ser marcados como "Atrasado" antes do vencimento**
+* É possível cadastrar um empréstimo retroativo informando a **data de retirada** (`start_date`)
 
 ---
 
@@ -114,7 +111,7 @@ Foi desenvolvido utilizando Laravel seguindo boas práticas de arquitetura e org
 
 ### 🧩 Observer Pattern
 
-Utilizado para **registrar logs automaticamente** quando um registro de `Book`, `User`, `Genre` ou `Loan` for criado, atualizado ou deletado.
+Utilizado para **registrar logs automaticamente** quando um registro de `Book`, `LibraryUser`, `Genre` ou `Loan` for criado, atualizado ou deletado.
 
 Exemplo:
 
@@ -130,15 +127,11 @@ As **lógicas de negócio mais complexas** (como renovação de empréstimos) fo
 * Responsabilidade única
 * Melhor testabilidade
 
-Claro! Aqui está a seção **"🧪 Testes (Opcional)"** pronta para ser adicionada ao seu `README.md`, com instruções claras sobre como configurar o ambiente, instalar dependências e executar os testes com **Laravel + PHPUnit**, incluindo a extensão `mbstring` e o uso do `.env.testing`.
-
 ---
 
 ## 🧪 Testes (Opcional)
 
 Este projeto possui uma base inicial de testes com **PHPUnit**. Você pode executar testes automatizados para garantir que os principais fluxos (como criação de livros) funcionam corretamente.
-
----
 
 ### ✅ Requisitos
 
