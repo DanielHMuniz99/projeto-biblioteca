@@ -7,16 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 class Loan extends Model
 {
     protected $fillable = [
-        'user_id',
+        'library_user_id',
         'book_id',
         'start_date',
         'due_date',
         'status',
     ];   
 
-    public function user()
+    public function libraryUser()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(LibraryUser::class);
     }
     
     public function book()

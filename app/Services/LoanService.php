@@ -22,7 +22,7 @@ class LoanService
             ]);
         }
 
-        $hasLateLoans = Loan::where('user_id', $loan->user_id)
+        $hasLateLoans = Loan::where('library_user_id', $loan->library_user_id)
             ->where('status', 'late')
             ->where('id', '!=', $loan->id)
             ->exists();

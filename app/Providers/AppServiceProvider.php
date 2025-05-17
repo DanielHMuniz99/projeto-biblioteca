@@ -6,11 +6,11 @@ use Illuminate\Support\ServiceProvider;
 
 use App\Models\Book;
 use App\Models\Loan;
-use App\Models\User;
+use App\Models\LibraryUser;
 use App\Models\Genre;
 use App\Observers\BookObserver;
 use App\Observers\LoanObserver;
-use App\Observers\UserObserver;
+use App\Observers\LibraryUserObserver;
 use App\Observers\GenreObserver;
 
 class AppServiceProvider extends ServiceProvider
@@ -30,7 +30,7 @@ class AppServiceProvider extends ServiceProvider
     {
         Book::observe(BookObserver::class);
         Loan::observe(LoanObserver::class);
-        User::observe(UserObserver::class);
+        LibraryUser::observe(LibraryUserObserver::class);
         Genre::observe(GenreObserver::class);
     }
 }

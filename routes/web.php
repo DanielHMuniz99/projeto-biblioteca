@@ -1,18 +1,18 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UsersController;
+use App\Http\Controllers\LibraryUsersController;
 use App\Http\Controllers\BooksController;
 use App\Http\Controllers\GenresController;
 use App\Http\Controllers\LoansController;
 
 Route::prefix('usuarios')->group(function () {
-    Route::get('/', [UsersController::class, 'index'])->name('usuarios.index');
-    Route::get('/create', [UsersController::class, 'create'])->name('usuarios.create');
-    Route::post('/', [UsersController::class, 'store'])->name('usuarios.store');
-    Route::get('/{id}/edit', [UsersController::class, 'edit'])->name('usuarios.edit');
-    Route::put('/{id}', [UsersController::class, 'update'])->name('usuarios.update');
-    Route::delete('/{id}', [UsersController::class, 'destroy'])->name('usuarios.destroy');
+    Route::get('/', [LibraryUsersController::class, 'index'])->name('usuarios.index');
+    Route::get('/create', [LibraryUsersController::class, 'create'])->name('usuarios.create');
+    Route::post('/', [LibraryUsersController::class, 'store'])->name('usuarios.store');
+    Route::get('/{id}/edit', [LibraryUsersController::class, 'edit'])->name('usuarios.edit');
+    Route::put('/{id}', [LibraryUsersController::class, 'update'])->name('usuarios.update');
+    Route::delete('/{id}', [LibraryUsersController::class, 'destroy'])->name('usuarios.destroy');
 });
 
 Route::prefix('livros')->group(function () {

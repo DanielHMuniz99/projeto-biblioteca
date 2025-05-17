@@ -18,7 +18,7 @@
         <tbody>
             @foreach($loans as $loan)
             <tr>
-                <td>{{ $loan->user->name }}</td>
+                <td>{{ $loan->libraryUser->name }}</td>
                 <td>{{ $loan->book->title }}</td>
                 <td>{{ $loan->due_date }}</td>
                 <td>{{ $loan->getTranslatedStatus() }}</td>

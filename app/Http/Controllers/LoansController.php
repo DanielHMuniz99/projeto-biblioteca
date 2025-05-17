@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Loan;
-use App\Models\User;
+use App\Models\LibraryUser;
 use App\Models\Book;
 use Illuminate\Http\Request;
 use App\Services\LoanService;
@@ -12,13 +12,13 @@ class LoansController extends Controller
 {
     public function index()
     {
-        $loans = Loan::with(['user', 'book'])->get();
+        $loans = Loan::with(['libraryUser', 'book'])->get();
         return view('loans.index', compact('loans'));
     }
 
     public function create()
     {
-        $users = User::all();
+        $users = LibraryUser::all();
         $books = Book::where('status', 'available')->get();
         return view('loans.form', compact('users', 'books'));
     }
@@ -26,14 +26,14 @@ class LoansController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'user_id' => 'required|exists:users,id',
+            'library_user_id' => 'required|exists:library_users,id',
             'book_id' => 'required|exists:books,id',
             'start_date' => 'required|date',
             'due_date' => 'required|date|after_or_equal:start_date',
         ]);
         
         Loan::create([
-            'user_id' => $request->user_id,
+            'library_user_id' => $request->library_user_id,
             'book_id' => $request->book_id,
             'start_date' => $request->start_date,
             'due_date' => $request->due_date,

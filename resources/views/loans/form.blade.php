@@ -8,7 +8,7 @@
 
         <div class="mb-3">
             <label class="form-label">Usuário</label>
-            <select name="user_id" class="form-control" required>
+            <select name="library_user_id" class="form-control" required>
                 @foreach($users as $user)
                     <option value="{{ $user->id }}">{{ $user->name }}</option>
                 @endforeach

@@ -3,11 +3,11 @@
 namespace Tests\Feature;
 
 use Tests\TestCase;
-use App\Models\User;
+use App\Models\LibraryUser;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 
-class UserTest extends TestCase
+class LibraryUserTest extends TestCase
 {
     use RefreshDatabase, WithoutMiddleware;
 
@@ -20,12 +20,12 @@ class UserTest extends TestCase
         ]);
 
         $response->assertRedirect('/usuarios');
-        $this->assertDatabaseHas('users', ['email' => 'daniel@test.com']);
+        $this->assertDatabaseHas('library_users', ['email' => 'daniel@test.com']);
     }
 
     public function test_user_can_be_deleted()
     {
-        $user = User::create([
+        $user = LibraryUser::create([
             'name' => 'Maria',
             'email' => 'maria@test.com',
             'registration_number' => 'U-002',
@@ -34,6 +34,6 @@ class UserTest extends TestCase
         $response = $this->delete("/usuarios/{$user->id}");
 
         $response->assertRedirect('/usuarios');
-        $this->assertDatabaseMissing('users', ['email' => 'maria@test.com']);
+        $this->assertDatabaseMissing('library_users', ['email' => 'maria@test.com']);
     }
 }

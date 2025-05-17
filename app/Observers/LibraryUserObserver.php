@@ -2,12 +2,12 @@
 
 namespace App\Observers;
 
-use App\Models\User;
+use App\Models\LibraryUser;
 use Illuminate\Support\Facades\Log;
 
-class UserObserver
+class LibraryUserObserver
 {
-    public function created(User $user)
+    public function created(LibraryUser $user)
     {
         Log::info('User created', [
             'id' => $user->id,
@@ -15,7 +15,7 @@ class UserObserver
         ]);
     }
 
-    public function updated(User $user)
+    public function updated(LibraryUser $user)
     {
         Log::info('User updated', [
             'id' => $user->id,
@@ -23,7 +23,7 @@ class UserObserver
         ]);
     }
 
-    public function deleted(User $user)
+    public function deleted(LibraryUser $user)
     {
         Log::warning('User deleted', [
             'id' => $user->id,

@@ -4,7 +4,7 @@ namespace Tests\Feature;
 
 use Tests\TestCase;
 use App\Models\Loan;
-use App\Models\User;
+use App\Models\LibraryUser;
 use App\Models\Book;
 use App\Models\Genre;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -16,7 +16,7 @@ class LoanTest extends TestCase
 
     public function test_loan_can_be_created()
     {
-        $user = User::create([
+        $user = LibraryUser::create([
             'name' => 'Carlos',
             'email' => 'carlos@example.com',
             'registration_number' => 'U-003',
@@ -32,14 +32,14 @@ class LoanTest extends TestCase
         ]);
 
         $response = $this->post('/emprestimos', [
-            'user_id' => $user->id,
+            'library_user_id' => $user->id,
             'book_id' => $book->id,
             'start_date' => now()->toDateString(),
             'due_date' => now()->addDays(7)->toDateString(),
         ]);
 
         $response->assertRedirect('/emprestimos');
-        $this->assertDatabaseHas('loans', ['user_id' => $user->id]);
+        $this->assertDatabaseHas('loans', ['library_user_id' => $user->id]);
         $this->assertDatabaseHas('books', ['id' => $book->id, 'status' => 'loaned']);
     }
 }

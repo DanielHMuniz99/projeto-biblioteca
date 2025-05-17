@@ -11,7 +11,7 @@ class LoanObserver
     {
         Log::info('Loan created', [
             'id' => $loan->id,
-            'user_id' => $loan->user_id,
+            'library_user_id' => $loan->library_user_id,
             'book_id' => $loan->book_id,
             'due_date' => $loan->due_date->toDateString(),
         ]);
@@ -29,7 +29,7 @@ class LoanObserver
     {
         Log::warning('Loan deleted', [
             'id' => $loan->id,
-            'user_id' => $loan->user_id,
+            'library_user_id' => $loan->library_user_id,
             'book_id' => $loan->book_id,
         ]);
     }
