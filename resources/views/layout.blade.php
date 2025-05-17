@@ -3,12 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <title>@yield('title') - Biblioteca</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.css') }}">
 </head>
 <body>
-    <div class="container py-4">
-        <h1 class="mb-4">Sistema da Biblioteca</h1>
-
+    <nav class="navbar navbar-expand-lg bg-primary navbar-dark">
+        <div class="container-fluid">
+            <h1 class="navbar-brand mb-0">Sistema da Biblioteca</h1>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('livros.index') }}">Livros</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('emprestimos.index') }}">Empréstimos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('generos.index') }}">Gêneros</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('usuarios.index') }}">Usuários</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container mt-4">
         @if(session('success'))
             <div class="alert alert-success">{{ session('success') }}</div>
         @elseif(session('error'))
