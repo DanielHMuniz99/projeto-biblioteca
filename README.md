@@ -65,6 +65,12 @@ Foi desenvolvido utilizando Laravel seguindo boas práticas de arquitetura e org
 
 ## 📌 Rotas disponíveis
 
+### 📊 Dashboard (`/`)
+
+* `GET /` — Exibe o painel com estatísticas gerais (livros, empréstimos, atrasos, etc.)
+
+---
+
 ### 👤 Usuários (`/usuarios`)
 
 * `GET /usuarios` — Listar usuários
