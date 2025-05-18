@@ -8,7 +8,13 @@
 <body>
     <nav class="navbar navbar-expand-lg bg-primary navbar-dark">
         <div class="container-fluid">
-            <h1 class="navbar-brand mb-0">Sistema da Biblioteca</h1>
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('home') }}">
+                        <h1 class="navbar-brand mb-0">Sistema da Biblioteca</h1>
+                    </a>
+                </li>
+            </ul>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">

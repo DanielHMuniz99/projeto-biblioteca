@@ -5,6 +5,9 @@ use App\Http\Controllers\LibraryUsersController;
 use App\Http\Controllers\BooksController;
 use App\Http\Controllers\GenresController;
 use App\Http\Controllers\LoansController;
+use App\Http\Controllers\DashboardController;
+
+Route::get('/', [DashboardController::class, 'index'])->name('home');
 
 Route::prefix('usuarios')->group(function () {
     Route::get('/', [LibraryUsersController::class, 'index'])->name('usuarios.index');

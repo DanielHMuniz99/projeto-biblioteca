@@ -53,7 +53,7 @@ class LoanService
 
         return DB::transaction(function () use ($data) {
             $loan = Loan::create([
-                'user_id'    => $data['user_id'],
+                'library_user_id'    => $data['library_user_id'],
                 'book_id'    => $data['book_id'],
                 'start_date' => $data['start_date'],
                 'due_date'   => $data['due_date'],
