@@ -3,8 +3,11 @@
 namespace App\Services;
 
 use App\Models\Loan;
+use App\Models\Book;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\DB;
+use Exception;
 
 class LoanService
 {
@@ -36,5 +39,28 @@ class LoanService
         $loan->update([
             'due_date' => $loan->due_date->addDays(7),
         ]);
+    }
+
+    public function createLoan(array $data): Loan
+    {
+        $hasLateLoan = Loan::where('library_user_id', $data['library_user_id'])
+            ->where('status', 'late')
+            ->exists();
+
+        if ($hasLateLoan) {
+            throw new Exception('Este usuário possui empréstimos atrasados e não pode alugar novos livros.');
+        }
+
+        return DB::transaction(function () use ($data) {
+            $loan = Loan::create([
+                'user_id'    => $data['user_id'],
+                'book_id'    => $data['book_id'],
+                'start_date' => $data['start_date'],
+                'due_date'   => $data['due_date'],
+                'status'     => 'pending',
+            ]);
+            Book::findOrFail($data['book_id'])->update(['status' => 'loaned']);
+            return $loan;
+        });
     }
 }

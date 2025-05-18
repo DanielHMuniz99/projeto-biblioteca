@@ -23,24 +23,23 @@ class LoansController extends Controller
         return view('loans.form', compact('users', 'books'));
     }
 
-    public function store(Request $request)
+    public function store(Request $request, LoanService $loanService)
     {
-        $request->validate([
+        $validated = $request->validate([
             'library_user_id' => 'required|exists:library_users,id',
             'book_id' => 'required|exists:books,id',
-            'start_date' => 'required|date',
+            'start_date' => 'required|date|before_or_equal:today',
             'due_date' => 'required|date|after_or_equal:start_date',
         ]);
-        
-        Loan::create([
-            'library_user_id' => $request->library_user_id,
-            'book_id' => $request->book_id,
-            'start_date' => $request->start_date,
-            'due_date' => $request->due_date,
-            'status' => 'pending',
-        ]);
 
-        Book::findOrFail($request->book_id)->update(['status' => 'loaned']);
+        try {
+            $loanService->createLoan($validated);
+        } catch (\Exception $e) {
+            return redirect()
+                ->route('emprestimos.index')
+                ->with('error', $e->getMessage());
+        }
+    
         return redirect()->route('emprestimos.index')->with('success', 'Empréstimo registrado com sucesso.');
     }
 
