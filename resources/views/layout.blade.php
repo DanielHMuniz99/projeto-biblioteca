@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>@yield('title') - Biblioteca</title>
+    <link rel="icon" href="{{ asset('favicon.svg') }}" type="image/x-icon">
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.css') }}">
 </head>
 <body>
