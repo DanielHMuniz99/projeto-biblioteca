@@ -17,6 +17,11 @@ Foi desenvolvido utilizando Laravel seguindo boas práticas de arquitetura e org
 
 1. Clone o repositório:
 
+   ```bash
+   git clone https://github.com/seu-usuario/seu-projeto.git
+   cd seu-projeto
+   ```
+
 2. Instale as dependências:
 
    ```bash
@@ -29,9 +34,15 @@ Foi desenvolvido utilizando Laravel seguindo boas práticas de arquitetura e org
    cp .env.example .env
    ```
 
-4. Configure o banco de dados no `.env`
+4. Gere a chave de aplicação:
 
-5. Rode as migrations **com seeders** (dados fictícios incluídos):
+   ```bash
+   php artisan key:generate
+   ```
+
+5. Configure o banco de dados no `.env`
+
+6. Rode as migrations **com seeders** (dados fictícios incluídos):
 
    ```bash
    php artisan migrate:fresh --seed
@@ -44,7 +55,7 @@ Foi desenvolvido utilizando Laravel seguindo boas práticas de arquitetura e org
    * 3 livros (alguns emprestados)
    * 2 empréstimos (sendo 1 pendente e 1 atrasado)
 
-6. Inicie o servidor:
+7. Inicie o servidor:
 
    ```bash
    php artisan serve
