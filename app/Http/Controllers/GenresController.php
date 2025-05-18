@@ -4,21 +4,34 @@ namespace App\Http\Controllers;
 
 use App\Models\Genre;
 use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 
 class GenresController extends Controller
 {
-    public function index()
+    /**
+     * @return View
+     */
+    public function index(): View
     {
         $genres = Genre::all();
         return view('genres.index', compact('genres'));
     }
 
-    public function create()
+    /**
+     * @return View
+     */
+    public function create(): View
     {
         return view('genres.form');
     }
 
-    public function store(Request $request)
+    /**
+     * @param Request $request
+     * 
+     * @return RedirectResponse
+     */
+    public function store(Request $request): RedirectResponse
     {
         $request->validate([
             'name' => 'required|unique:genres'
@@ -28,13 +41,24 @@ class GenresController extends Controller
         return redirect()->route('generos.index')->with('success', 'Gênero cadastrado com sucesso.');
     }
 
-    public function edit($id)
+    /**
+     * @param int $id
+     * 
+     * @return View
+     */
+    public function edit(int $id): View
     {
         $genre = Genre::findOrFail($id);
         return view('genres.form', compact('genre'));
     }
 
-    public function update(Request $request, $id)
+    /**
+     * @param Request $request
+     * @param int $id
+     * 
+     * @return RedirectResponse
+     */
+    public function update(Request $request, int $id): RedirectResponse
     {
         $genre = Genre::findOrFail($id);
 
@@ -46,17 +70,21 @@ class GenresController extends Controller
         return redirect()->route('generos.index')->with('success', 'Gênero atualizado com sucesso.');
     }
 
-    public function destroy($id)
+    /**
+     * @param int $id
+     * 
+     * @return RedirectResponse
+     */
+    public function destroy(int $id): RedirectResponse
     {
         $genre = Genre::withCount('books')->findOrFail($id);
-    
+
         if ($genre->books_count > 0) {
             return redirect()->route('generos.index')
                 ->with('error', 'Este gênero não pode ser excluído pois ainda possui livros associados.');
         }
-    
+
         $genre->delete();
-    
         return redirect()->route('generos.index')->with('success', 'Gênero excluído com sucesso.');
-    }    
+    }
 }

@@ -6,24 +6,38 @@ use App\Models\Loan;
 use App\Models\LibraryUser;
 use App\Models\Book;
 use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 use App\Services\LoanService;
 
 class LoansController extends Controller
 {
-    public function index()
+    /**
+     * @return View
+     */
+    public function index(): View
     {
         $loans = Loan::with(['libraryUser', 'book'])->get();
         return view('loans.index', compact('loans'));
     }
 
-    public function create()
+    /**
+     * @return View
+     */
+    public function create(): View
     {
         $users = LibraryUser::all();
         $books = Book::where('status', 'available')->get();
         return view('loans.form', compact('users', 'books'));
     }
 
-    public function store(Request $request, LoanService $loanService)
+    /**
+     * @param Request $request
+     * @param LoanService $loanService
+     * 
+     * @return RedirectResponse
+     */
+    public function store(Request $request, LoanService $loanService): RedirectResponse
     {
         $validated = $request->validate([
             'library_user_id' => 'required|exists:library_users,id',
@@ -39,11 +53,16 @@ class LoansController extends Controller
                 ->route('emprestimos.index')
                 ->with('error', $e->getMessage());
         }
-    
+
         return redirect()->route('emprestimos.index')->with('success', 'Empréstimo registrado com sucesso.');
     }
 
-    public function markAsReturned($id)
+    /**
+     * @param int $id
+     * 
+     * @return RedirectResponse
+     */
+    public function markAsReturned(int $id): RedirectResponse
     {
         $loan = Loan::findOrFail($id);
         $loan->update(['status' => 'returned']);
@@ -52,24 +71,35 @@ class LoansController extends Controller
         return redirect()->route('emprestimos.index')->with('success', 'Livro marcado como devolvido.');
     }
 
-    public function markAsLate($id)
+    /**
+     * @param int $id
+     * 
+     * @return RedirectResponse
+     */
+    public function markAsLate(int $id): RedirectResponse
     {
         $loan = Loan::with('book')->findOrFail($id);
-    
+
         if (now()->lt($loan->due_date)) {
             return redirect()
                 ->route('emprestimos.index')
                 ->with('error', 'Este empréstimo ainda não está atrasado.');
         }
-    
+
         $loan->update(['status' => 'late']);
-    
+
         return redirect()
             ->route('emprestimos.index')
             ->with('success', 'Empréstimo marcado como atrasado.');
-    }    
+    }
 
-    public function renew($id, LoanService $loanService)
+    /**
+     * @param int $id
+     * @param LoanService $loanService
+     * 
+     * @return RedirectResponse
+     */
+    public function renew(int $id, LoanService $loanService): RedirectResponse
     {
         $loan = Loan::with('user')->findOrFail($id);
 

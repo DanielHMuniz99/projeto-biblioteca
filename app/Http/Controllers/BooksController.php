@@ -5,22 +5,35 @@ namespace App\Http\Controllers;
 use App\Models\Book;
 use App\Models\Genre;
 use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 
 class BooksController extends Controller
 {
-    public function index()
+    /**
+     * @return View
+     */
+    public function index(): View
     {
         $books = Book::with('genre')->get();
         return view('books.index', compact('books'));
     }
 
-    public function create()
+    /**
+     * @return View
+     */
+    public function create(): View
     {
         $genres = Genre::all();
         return view('books.form', compact('genres'));
     }
 
-    public function store(Request $request)
+    /**
+     * @param Request $request
+     * 
+     * @return RedirectResponse
+     */
+    public function store(Request $request): RedirectResponse
     {
         $request->validate([
             'title' => 'required',
@@ -34,14 +47,25 @@ class BooksController extends Controller
         return redirect()->route('livros.index')->with('success', 'Livro cadastrado com sucesso.');
     }
 
-    public function edit($id)
+    /**
+     * @param int $id
+     * 
+     * @return View
+     */
+    public function edit(int $id): View
     {
         $book = Book::findOrFail($id);
         $genres = Genre::all();
         return view('books.edit', compact('book', 'genres'));
     }
 
-    public function update(Request $request, $id)
+    /**
+     * @param Request $request
+     * @param int $id
+     * 
+     * @return RedirectResponse
+     */
+    public function update(Request $request, int $id): RedirectResponse
     {
         $book = Book::findOrFail($id);
 
@@ -57,7 +81,12 @@ class BooksController extends Controller
         return redirect()->route('livros.index')->with('success', 'Livro atualizado com sucesso.');
     }
 
-    public function destroy($id)
+    /**
+     * @param int $id
+     * 
+     * @return RedirectResponse
+     */
+    public function destroy(int $id): RedirectResponse
     {
         Book::destroy($id);
         return redirect()->route('livros.index')->with('success', 'Livro excluído com sucesso.');

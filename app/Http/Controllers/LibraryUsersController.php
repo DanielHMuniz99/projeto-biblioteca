@@ -4,21 +4,34 @@ namespace App\Http\Controllers;
 
 use App\Models\LibraryUser;
 use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 
 class LibraryUsersController extends Controller
 {
-    public function index()
+    /**
+     * @return View
+     */
+    public function index(): View
     {
         $users = LibraryUser::all();
         return view('users.index', compact('users'));
     }
 
-    public function create()
+    /**
+     * @return View
+     */
+    public function create(): View
     {
         return view('users.form');
     }
 
-    public function store(Request $request)
+    /**
+     * @param Request $request
+     * 
+     * @return RedirectResponse
+     */
+    public function store(Request $request): RedirectResponse
     {
         $request->validate([
             'name' => 'required|string',
@@ -30,13 +43,24 @@ class LibraryUsersController extends Controller
         return redirect()->route('usuarios.index')->with('success', 'Usuário criado com sucesso.');
     }
 
-    public function edit($id)
+    /**
+     * @param int $id
+     * 
+     * @return View
+     */
+    public function edit(int $id): View
     {
         $user = LibraryUser::findOrFail($id);
         return view('users.form', compact('user'));
     }
 
-    public function update(Request $request, $id)
+    /**
+     * @param Request $request
+     * @param int $id
+     * 
+     * @return RedirectResponse
+     */
+    public function update(Request $request, int $id): RedirectResponse
     {
         $user = LibraryUser::findOrFail($id);
 
@@ -50,7 +74,12 @@ class LibraryUsersController extends Controller
         return redirect()->route('usuarios.index')->with('success', 'Usuário atualizado com sucesso.');
     }
 
-    public function destroy($id)
+    /**
+     * @param int $id
+     * 
+     * @return RedirectResponse
+     */
+    public function destroy(int $id): RedirectResponse
     {
         LibraryUser::destroy($id);
         return redirect()->route('usuarios.index')->with('success', 'Usuário excluído com sucesso.');
