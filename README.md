@@ -120,6 +120,7 @@ Foi desenvolvido utilizando Laravel seguindo boas práticas de arquitetura e org
 * Um gênero com livros associados **não pode ser excluído**
 * Livros são marcados como "Emprestado" ou "Disponível" automaticamente
 * Empréstimos vencidos **não podem ser marcados como "Atrasado" antes do vencimento**
+* Usuários com empréstimos registrados não podem ser excluídos
 * É possível cadastrar um empréstimo retroativo informando a **data de retirada** (`start_date`)
 
 ---

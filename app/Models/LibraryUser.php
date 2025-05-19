@@ -14,4 +14,9 @@ class LibraryUser extends Model
         'email',
         'registration_number'
     ];
+
+    public function loans()
+    {
+        return $this->hasMany(Loan::class);
+    }
 }

@@ -81,7 +81,18 @@ class LibraryUsersController extends Controller
      */
     public function destroy(int $id): RedirectResponse
     {
-        LibraryUser::destroy($id);
+        $user = LibraryUser::findOrFail($id);
+        $hasActiveLoans = $user->loans()
+            ->whereIn('status', ['pending', 'late'])
+            ->exists();
+
+        if ($hasActiveLoans) {
+            return redirect()
+                ->route('usuarios.index')
+                ->with('error', 'Este usuário possui empréstimos pendentes ou atrasados e não pode ser excluído.');
+        }
+
+        $user->delete();
         return redirect()->route('usuarios.index')->with('success', 'Usuário excluído com sucesso.');
     }
 }
