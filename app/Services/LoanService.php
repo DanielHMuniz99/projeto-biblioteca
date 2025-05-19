@@ -11,6 +11,11 @@ use Exception;
 
 class LoanService
 {
+    /**
+     * @param Loan $loan
+     * 
+     * @return void
+     */
     public function renewLoan(Loan $loan): void
     {
         if ($loan->status !== 'pending') {
@@ -41,6 +46,11 @@ class LoanService
         ]);
     }
 
+    /**
+     * @param array $data
+     * 
+     * @return Loan
+     */
     public function createLoan(array $data): Loan
     {
         $hasLateLoan = Loan::where('library_user_id', $data['library_user_id'])

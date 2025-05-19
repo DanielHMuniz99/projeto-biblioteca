@@ -101,7 +101,7 @@ class LoansController extends Controller
      */
     public function renew(int $id, LoanService $loanService): RedirectResponse
     {
-        $loan = Loan::with('user')->findOrFail($id);
+        $loan = Loan::with('libraryUser')->findOrFail($id);
 
         try {
             $loanService->renewLoan($loan);
