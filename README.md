@@ -1,4 +1,4 @@
-## 📚 Sistema de Gerenciamento de Biblioteca
+## 📚 Sistema de Gerenciamento de Biblioteca (Desafio técnico)
 
 Este projeto é um sistema para gerenciar **usuários**, **livros**, **gêneros literários** e **empréstimos** em uma biblioteca.
 Foi desenvolvido utilizando Laravel seguindo boas práticas de arquitetura e organização de código.
@@ -15,34 +15,27 @@ Foi desenvolvido utilizando Laravel seguindo boas práticas de arquitetura e org
 
 ## 🚀 Como executar o projeto
 
-1. Clone o repositório:
-
-   ```bash
-   git clone https://github.com/seu-usuario/seu-projeto.git
-   cd seu-projeto
-   ```
-
-2. Instale as dependências:
+1. Instale as dependências:
 
    ```bash
    composer install
    ```
 
-3. Copie o `.env` e configure:
+2. Copie o `.env` e configure:
 
    ```bash
    cp .env.example .env
    ```
 
-4. Gere a chave de aplicação:
+3. Gere a chave de aplicação:
 
    ```bash
    php artisan key:generate
    ```
 
-5. Configure o banco de dados no `.env`
+4. Configure o banco de dados no `.env`
 
-6. Rode as migrations **com seeders** (dados fictícios incluídos):
+5. Rode as migrations **com seeders** (dados fictícios incluídos):
 
    ```bash
    php artisan migrate:fresh --seed
@@ -55,7 +48,7 @@ Foi desenvolvido utilizando Laravel seguindo boas práticas de arquitetura e org
    * 3 livros (alguns emprestados)
    * 2 empréstimos (sendo 1 pendente e 1 atrasado)
 
-7. Inicie o servidor:
+6. Inicie o servidor:
 
    ```bash
    php artisan serve
